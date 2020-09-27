@@ -1,24 +1,71 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
+// COMPONENTS 
+import Form from './components/Form';
+import Transactions from './components/Transactions';
+
+// REDUX IMPORTS
+import {useSelector,useDispatch} from 'react-redux';
+
+const App = () => {
+
+  // STORE DATA
+  const transactions = useSelector(state => state.transactions);
+  console.log(transactions);
+
+  const depositosFilter = transactions.filter( deposito => deposito.typeTransaction === 'Deposito');
+  const depositosTotal  = depositosFilter.reduce( (acumulator,valor) =>  (acumulator + valor.amount),0);
+
+  const despesasFilter = transactions.filter( deposito => deposito.typeTransaction === 'Despesa');
+  const despesasTotal  = despesasFilter.reduce( (acumulator,valor) =>  (acumulator + valor.amount),0);
+
+  const amounts = transactions.map(valor => valor.amount);
+
+  const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2);
+
+  console.log('depositos -> ',       depositosFilter);
+  console.log('Valor depositos -> ', depositosTotal);
+
+  console.log('despesas -> ',       despesasFilter);
+  console.log('Valor despesas -> ', despesasTotal);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+    <div className="app">
+      <h3 className="app-title">Controle Finaceiro</h3>
+
+      <div className="balanco-container">
+
+        <div className="balanco-total-container">
+          <p>Saldo Total:</p>
+          <h1 >${Math.abs(total).toFixed(2)}</h1>
+        </div>
+
+        <div className="balanco-valores-container">
+          <h5 >Depósitos: ${Math.abs(depositosTotal).toFixed(2)}</h5>
+          <h5 >Despesas:  -${Math.abs(despesasTotal).toFixed(2)}</h5>
+        </div>
+        
+      </div>
+
+      <div className="transactions-list">
+          {
+            transactions.map( ({ id,title,typeTransaction,amount }) => {
+              return ( 
+                        <Transactions 
+                        key={id}
+                        title={title}
+                        typeTransaction={typeTransaction}
+                        amount={amount}
+                        /> 
+              )
+            }).reverse()
+          }
+       </div>
+
+       <Form/>
+        
     </div>
   );
 }
