@@ -6,7 +6,7 @@ import Form from './components/Form';
 import Transactions from './components/Transactions';
 
 // REDUX IMPORTS
-import {useSelector,useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 const App = () => {
 
@@ -14,14 +14,16 @@ const App = () => {
   const transactions = useSelector(state => state.transactions);
   console.log(transactions);
 
+  // DEPOSITOS TOTAL
   const depositosFilter = transactions.filter( deposito => deposito.typeTransaction === 'Deposito');
   const depositosTotal  = depositosFilter.reduce( (acumulator,valor) =>  (acumulator + valor.amount),0);
-
+  
+  // DESPESAS TOTAL
   const despesasFilter = transactions.filter( deposito => deposito.typeTransaction === 'Despesa');
   const despesasTotal  = despesasFilter.reduce( (acumulator,valor) =>  (acumulator + valor.amount),0);
 
+  // BALANÇO TOTAL  
   const amounts = transactions.map(valor => valor.amount);
-
   const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2);
 
   console.log('depositos -> ',       depositosFilter);
