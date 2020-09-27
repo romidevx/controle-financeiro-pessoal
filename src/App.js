@@ -33,7 +33,7 @@ const App = () => {
   return (
 
     <div className="app">
-      <h3 className="app-title">Controle Finaceiro</h3>
+      <h3 className="app-title">Controle Financeiro</h3>
 
       <div className="balanco-container">
 
