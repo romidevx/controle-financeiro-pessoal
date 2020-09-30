@@ -13,7 +13,8 @@ const Form = () => {
     const transactionInfo = {
       title,
       typeTransaction,
-      amount
+      amount,
+      //id:transactions.length + 1
     }
 
     dispatch({

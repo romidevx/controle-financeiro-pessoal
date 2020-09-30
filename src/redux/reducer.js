@@ -20,10 +20,10 @@ const reducer = (state, action) => {
     case 'DEPOSITO':{
 
       console.log('recebido pelo reducer -> ',action.payload)
-      // return {
-      //     ...state,
-      //     transactions: [action.payload, ...state.transactions]
-      //   }
+      return {
+          ...state,
+          transactions: [action.payload, ...state.transactions]
+        }
   }
     
     default:
