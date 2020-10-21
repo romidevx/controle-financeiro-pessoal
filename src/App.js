@@ -10,9 +10,9 @@ import {useSelector} from 'react-redux';
 
 const App = () => {
 
-  // STORE DATA
+  // PULL DATA FROM STORE
   const transactions = useSelector(state => state.transactions);
-  console.log(transactions);
+  //console.log(transactions);
 
   // DEPOSITOS TOTAL
   const depositosFilter = transactions.filter( deposito => deposito.typeTransaction === 'Deposito');
@@ -22,20 +22,20 @@ const App = () => {
   const despesasFilter = transactions.filter( despesa => despesa.typeTransaction === 'Despesa');
   const despesasTotal  = despesasFilter.reduce( (acumulator,valor) =>  (acumulator + valor.amount),0);
 
-  // BALANÇO TOTAL  
-  const amounts = transactions.map(valor => valor.amount);
-  //const total = amounts.reduce((acc, item) => (acc += item), 0);
+   
+  // BALANÇO TOTAL
   const total = depositosTotal - despesasTotal;
 
-  console.log('depositos -> ',       depositosFilter);
-  console.log('Valor depositos -> ', depositosTotal);
+  // console.log('depositos -> ',       depositosFilter);
+  // console.log('Valor depositos -> ', depositosTotal);
 
-  console.log('despesas -> ',       despesasFilter);
-  console.log('Valor despesas -> ', despesasTotal);
+  // console.log('despesas -> ',       despesasFilter);
+  // console.log('Valor despesas -> ', despesasTotal);
 
   return (
 
     <div className="app">
+      
       <h3 className="app-title">Controle Financeiro</h3>
 
       <div className="balanco-container">
@@ -44,8 +44,8 @@ const App = () => {
           <p>Saldo:</p>
           { 
             despesasTotal > depositosTotal 
-            ? <h1 style={{color:'#c30000'}}>$ {total.toFixed(2)}</h1> 
-            : <h1 style={{color:'#016ab4'}}>$ {total.toFixed(2)}</h1> 
+            ? <h1 style={{color:'#c30000'}}>$ {total.toFixed(2)}</h1> // despesas maior que depositos cor vermelha
+            : <h1 style={{color:'#016ab4'}}>$ {total.toFixed(2)}</h1> // despesas menor que depositos cor azul
           } 
         </div>
 
@@ -61,10 +61,10 @@ const App = () => {
             transactions.map( ({ id,title,typeTransaction,amount }) => {
               return ( 
                         <Transactions 
-                        key={id}
-                        title={title}
-                        typeTransaction={typeTransaction}
-                        amount={amount}
+                          key={id}
+                          title={title}
+                          typeTransaction={typeTransaction}
+                          amount={amount}
                         /> 
               )
             })

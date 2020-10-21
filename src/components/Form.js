@@ -3,6 +3,7 @@ import {useDispatch} from 'react-redux';
 
 
 const Form = () => {
+  
   const [title,setTitle] = useState('');
   const [typeTransaction,setTypeTransaction] = useState('Tipo de transação');
   const [amount,setAmount] = useState('');
@@ -14,13 +15,13 @@ const Form = () => {
       title,
       typeTransaction,
       amount,
-      //id:transactions.length + 1
     }
 
     dispatch({
       type:'DEPOSITO',
       payload:transactionInfo
     });
+
     setTitle('');
     setTypeTransaction('');
     setAmount('');
