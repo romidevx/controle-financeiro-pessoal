@@ -9,7 +9,7 @@ const List = ({title,typeTransaction,amount }) => {
 
       <div className="transaction-description">
         <p>{title}</p>
-        <p className={typeTransaction === 'Deposito' ? 'positivo' : 'negativo'}>{typeTransaction}</p> 
+        {/* <p className={typeTransaction === 'Deposito' ? 'positivo' : 'negativo'}>{typeTransaction}</p>  */}
       </div>
 
       <div className={typeTransaction === 'Deposito' ? 'positivo' : 'negativo'}>
