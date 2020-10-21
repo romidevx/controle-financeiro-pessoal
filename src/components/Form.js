@@ -21,7 +21,9 @@ const Form = () => {
       type:'DEPOSITO',
       payload:transactionInfo
     });
-
+    setTitle('');
+    setTypeTransaction('');
+    setAmount('');
   }
 
   return (
@@ -34,11 +36,12 @@ const Form = () => {
         <input type="text" value={title} onChange={e => setTitle(e.target.value)} placeholder="Descrição"/>
 
         <select  value={typeTransaction} onChange={e => setTypeTransaction(e.target.value)}>
+          <option value="none" diasbled hidden>Tipo de transação</option>
           <option value="Deposito">Deposito</option>
           <option value="Despesa">Despesa</option>
         </select> 
 
-        <input type="text" value={amount} onChange={e => setAmount(e.target.value)} placeholder="Valor"/>
+        <input type="text" value={amount} onChange={e => setAmount(parseFloat(e.target.value))} placeholder="Valor" style={{textAlign:'right'}}/>
       </div>
        
       <div className="form-container-button">

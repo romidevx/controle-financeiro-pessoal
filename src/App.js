@@ -19,12 +19,13 @@ const App = () => {
   const depositosTotal  = depositosFilter.reduce( (acumulator,valor) =>  (acumulator + valor.amount),0);
   
   // DESPESAS TOTAL
-  const despesasFilter = transactions.filter( deposito => deposito.typeTransaction === 'Despesa');
+  const despesasFilter = transactions.filter( despesa => despesa.typeTransaction === 'Despesa');
   const despesasTotal  = despesasFilter.reduce( (acumulator,valor) =>  (acumulator + valor.amount),0);
 
   // BALANÇO TOTAL  
   const amounts = transactions.map(valor => valor.amount);
-  const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2);
+  //const total = amounts.reduce((acc, item) => (acc += item), 0);
+  const total = depositosTotal - despesasTotal;
 
   console.log('depositos -> ',       depositosFilter);
   console.log('Valor depositos -> ', depositosTotal);
@@ -40,8 +41,12 @@ const App = () => {
       <div className="balanco-container">
 
         <div className="balanco-total-container">
-          <p>Saldo Total:</p>
-          <h1 >${Math.abs(total).toFixed(2)}</h1>
+          <p>Saldo:</p>
+          { 
+            despesasTotal > depositosTotal 
+            ? <h1 style={{color:'#c30000'}}>$ {total.toFixed(2)}</h1> 
+            : <h1 style={{color:'#016ab4'}}>$ {total.toFixed(2)}</h1> 
+          } 
         </div>
 
         <div className="balanco-valores-container">
@@ -62,7 +67,7 @@ const App = () => {
                         amount={amount}
                         /> 
               )
-            }).reverse()
+            })
           }
        </div>
 
