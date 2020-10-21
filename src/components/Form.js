@@ -3,14 +3,35 @@ import {useDispatch} from 'react-redux';
 
 
 const Form = () => {
-  
+
   const [title,setTitle] = useState('');
-  const [typeTransaction,setTypeTransaction] = useState('Tipo de transação');
+  const [typeTransaction,setTypeTransaction] = useState();
   const [amount,setAmount] = useState('');
+
+  const [errorTitle,setErrorTitle] = useState('');
+  const [errorTypeTransaction,setErrorTypeTransaction] = useState('');
+  const [errorAmount,setErrorAmount] = useState('');
 
   const dispatch = useDispatch();
 
   const saveTransaction = () => {
+
+    if(!title ){
+      setErrorTitle('Please enter descrição');
+      return;
+    }
+
+    if(typeTransaction === undefined || typeTransaction === '' ) {
+      setErrorTypeTransaction('Escolha o tipo de transação');
+      return;
+    }
+
+    if(!amount || isNaN(amount)){
+      setErrorAmount('Please enter amount');
+      return;
+    }
+
+
     const transactionInfo = {
       title,
       typeTransaction,
@@ -32,17 +53,33 @@ const Form = () => {
 
       <h3>Nova transação</h3>
 
+      {errorTitle ? <span style={{color:'red',textAlign:'left'}}><br/>{errorTitle}</span> : ''}
+      {errorTypeTransaction ? <span style={{color:'red',textAlign:'center'}}><br/>{errorTypeTransaction}</span> : ''}
+      {errorAmount ? <span style={{color:'red',textAlign:'right'}}><br/>{errorAmount}</span> : ''}
+
       <div className="form-container">
 
-        <input type="text" value={title} onChange={e => setTitle(e.target.value)} placeholder="Descrição"/>
-
-        <select  value={typeTransaction} onChange={e => setTypeTransaction(e.target.value)}>
+        <input type="text" value={title} onChange={e => {
+          setTitle(e.target.value)
+          setErrorTitle('')
+        }} 
+        placeholder="Descrição"
+        />
+        
+        <select  value={typeTransaction} onChange={e => {
+          setTypeTransaction(e.target.value)
+          setErrorTypeTransaction('')
+        }}>
           <option value="none" diasbled hidden>Tipo de transação</option>
           <option value="Deposito">Deposito</option>
           <option value="Despesa">Despesa</option>
         </select> 
 
-        <input type="text" value={amount} onChange={e => setAmount(parseFloat(e.target.value))} placeholder="Valor" style={{textAlign:'right'}}/>
+        <input type="text" value={amount} onChange={e => {
+          setAmount(parseFloat(e.target.value))
+          setErrorAmount('')
+        }} 
+          placeholder="Valor" style={{textAlign:'right'}}/>
       </div>
        
       <div className="form-container-button">

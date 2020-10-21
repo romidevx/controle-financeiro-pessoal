@@ -35,7 +35,7 @@ const App = () => {
   return (
 
     <div className="app">
-      
+
       <h3 className="app-title">Controle Financeiro</h3>
 
       <div className="balanco-container">
@@ -58,10 +58,10 @@ const App = () => {
 
       <div className="transactions-list">
           {
-            transactions.map( ({ id,title,typeTransaction,amount }) => {
+            transactions.map( ({ index,title,typeTransaction,amount }) => {
               return ( 
                         <Transactions 
-                          key={id}
+                          key={index}
                           title={title}
                           typeTransaction={typeTransaction}
                           amount={amount}
