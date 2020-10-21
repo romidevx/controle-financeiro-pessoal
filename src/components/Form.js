@@ -26,16 +26,15 @@ const Form = () => {
       return;
     }
 
-    if(!amount || isNaN(amount)){
-      setErrorAmount('Please enter amount');
-      return;
+    if(!amount || amount <= 0 || amount.length < 1  || isNaN(amount)){
+      setErrorAmount('Please enter number value');
+      return ;
     }
-
 
     const transactionInfo = {
       title,
       typeTransaction,
-      amount,
+      amount: parseInt(amount),
     }
 
     dispatch({
@@ -76,7 +75,7 @@ const Form = () => {
         </select> 
 
         <input type="text" value={amount} onChange={e => {
-          setAmount(parseFloat(e.target.value))
+          setAmount(e.target.value)
           setErrorAmount('')
         }} 
           placeholder="Valor" style={{textAlign:'right'}}/>
