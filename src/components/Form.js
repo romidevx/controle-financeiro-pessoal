@@ -70,7 +70,7 @@ const Form = () => {
           setErrorTypeTransaction('')
         }}>
           <option value="none" diasbled hidden>Tipo de transação</option>
-          <option value="Deposito">Deposito</option>
+          <option value="Deposito" className='option-value'>Deposito</option>
           <option value="Despesa">Despesa</option>
         </select> 
 

@@ -93,6 +93,12 @@
   padding:10px;
   outline: none;
 }
+
+.option-value {
+  color:green !important;
+  padding-top:20px !important;
+}
+
 .form-container-button button{
   width:100%;
   padding:12px;

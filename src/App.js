@@ -56,6 +56,8 @@ const App = () => {
         
       </div>
 
+      <Form/>
+
       <div className="transactions-list">
           {
             transactions.map( ({ index,title,typeTransaction,amount }) => {
@@ -69,9 +71,9 @@ const App = () => {
               )
             })
           }
-       </div>
+      </div>
 
-       <Form/>
+       
         
     </div>
   );
